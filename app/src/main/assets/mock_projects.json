@@ -1,0 +1,46 @@
+{
+  "projects": [
+    {
+      "project_id": "PRJ-001",
+      "title_en": "Main Road Repair",
+      "title_kn": "ಮುಖ್ಯ ರಸ್ತೆ ದುರಸ್ತಿ",
+      "description_en": "Resurfacing 2km of the main village approach road.",
+      "description_kn": "ಗ್ರಾಮದ ಮುಖ್ಯ ಸಂಪರ್ಕ ರಸ್ತೆಯ 2 ಕಿ.ಮೀ ಡಾಂಬರೀಕರಣ.",
+      "budget": "₹ 5,00,000",
+      "start_date": "2023-09-01",
+      "expected_completion_date": "2023-12-01",
+      "progress_percentage": 50,
+      "status_text_en": "50% Complete - Leveling in progress",
+      "status_text_kn": "50% ಪೂರ್ಣಗೊಂಡಿದೆ - ಸಮತಟ್ಟುಗೊಳಿಸುವ ಕಾರ್ಯ ಪ್ರಗತಿಯಲ್ಲಿದೆ",
+      "images": {
+        "before_url": "https://mock-image-server.com/road-before.jpg",
+        "current_url": "https://mock-image-server.com/road-current.jpg"
+      },
+      "feedback": {
+        "average_rating": 3.8,
+        "total_reviews": 12
+      }
+    },
+    {
+      "project_id": "PRJ-002",
+      "title_en": "Borewell Installation",
+      "title_kn": "ಬೋರ್‌ವೆಲ್ ಅಳವಡಿಕೆ",
+      "description_en": "New borewell at the primary school.",
+      "description_kn": "ಪ್ರಾಥಮಿಕ ಶಾಲೆಯಲ್ಲಿ ಹೊಸ ಬೋರ್‌ವೆಲ್.",
+      "budget": "₹ 1,50,000",
+      "start_date": "2023-10-15",
+      "expected_completion_date": "2023-10-30",
+      "progress_percentage": 100,
+      "status_text_en": "Completed",
+      "status_text_kn": "ಪೂರ್ಣಗೊಂಡಿದೆ",
+      "images": {
+        "before_url": "https://mock-image-server.com/borewell-before.jpg",
+        "current_url": "https://mock-image-server.com/borewell-after.jpg"
+      },
+      "feedback": {
+        "average_rating": 4.5,
+        "total_reviews": 25
+      }
+    }
+  ]
+}

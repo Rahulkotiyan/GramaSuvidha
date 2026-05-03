@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Grama Suvidha</string>
+    <string name="tab_notice_board">Notice Board</string>
+    <string name="tab_dashboard">Dashboard</string>
+    <string name="tab_feedback">Feedback</string>
+    <string name="budget_label">Budget: </string>
+    <string name="progress_label">Progress: </string>
+</resources>

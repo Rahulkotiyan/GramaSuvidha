@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ಗ್ರಾಮ-ಸುವಿಧಾ</string>
+    <string name="tab_notice_board">ಸೂಚನಾ ಫಲಕ</string>
+    <string name="tab_dashboard">ಡ್ಯಾಶ್‌ಬೋರ್ಡ್</string>
+    <string name="tab_feedback">ಪ್ರತಿಕ್ರಿಯೆ</string>
+    <string name="budget_label">ಬಜೆಟ್: </string>
+    <string name="progress_label">ಪ್ರಗತಿ: </string>
+</resources>
