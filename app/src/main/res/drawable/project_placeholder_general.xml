@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400dp"
+    android:height="300dp"
+    android:viewportWidth="400"
+    android:viewportHeight="300">
+    
+    <!-- Background -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:pathData="M0,0h400v300h-400z" />
+    
+    <!-- Circle background -->
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M200,100a60,60 0,1 1,0 120a60,60 0,1 1,0 -120z" />
+    
+    <!-- Construction icon -->
+    <path
+        android:fillColor="#757575"
+        android:pathData="M180,120h40v60h-40z M190,180h20v20h-20z" />
+    
+    <!-- Tools -->
+    <path
+        android:fillColor="#424242"
+        android:pathData="M160,140l20,-20l5,5l-20,20z M220,140l-20,-20l-5,5l20,20z" />
+    
+    <!-- Text -->
+    <path
+        android:fillColor="#9E9E9E"
+        android:pathData="M150,220h100v8h-100z M170,235h60v6h-60z" />
+</vector>

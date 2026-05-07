@@ -1,0 +1,84 @@
+{
+  "notices": [
+    {
+      "notice_id": "NOT-001",
+      "title_en": "Village Meeting - Water Supply Issues",
+      "title_kn": "ಗ್ರಾಮ ಸಭೆ - ನೀರಿನ ಪೂರೈಕೆ ಸಮಸ್ಯೆಗಳು",
+      "content_en": "Important meeting to discuss ongoing water supply problems and proposed solutions. All residents are requested to attend.",
+      "content_kn": "ನಡೆಯುತ್ತಿರುವ ನೀರಿನ ಪೂರೈಕೆ ಸಮಸ್ಯೆಗಳು ಮತ್ತು ಪ್ರಸ್ತಾವಿತ ಪರಿಹಾರಗಳನ್ನು ಚರ್ಚಿಸಲು ಪ್ರಮುಖ ಸಭೆ. ಎಲ್ಲಾ ನಿವಾಸಿಗಳು ಹಾಜರಾಗಲು ವಿನಂತಿಸಲಾಗಿದೆ.",
+      "date": "2024-01-15",
+      "category": "Meeting",
+      "priority": "high"
+    },
+    {
+      "notice_id": "NOT-002",
+      "title_en": "Health Camp - Free Medical Checkup",
+      "title_kn": "ಆರೋಗ್ಯ ಶಿಬಿರ - ಉಚಿತ ವೈದ್ಯಕೀಯ ತಪಾಸಣೆ",
+      "content_en": "Free medical health camp organized at the primary health center. Services include general checkup, blood tests, and consultations.",
+      "content_kn": "ಪ್ರಾಥಮಿಕ ಆರೋಗ್ಯ ಕೇಂದ್ರದಲ್ಲಿ ಉಚಿತ ವೈದ್ಯಕೀಯ ಆರೋಗ್ಯ ಶಿಬಿರ ಆಯೋಜಿಸಲಾಗಿದೆ. ಸೇವೆಗಳಲ್ಲಿ ಸಾಮಾನ್ಯ ತಪಾಸಣೆ, ರಕ್ತ ಪರೀಕ್ಷೆಗಳು ಮತ್ತು ಸಲಹೆಗಳು ಸೇರಿವೆ.",
+      "date": "2024-01-18",
+      "category": "Health",
+      "priority": "medium"
+    },
+    {
+      "notice_id": "NOT-003",
+      "title_en": "Road Repair Work - Main Street",
+      "title_kn": "ರಸ್ತೆ ದುರಸ್ತಿ ಕಾರ್ಯ - ಮುಖ್ಯ ಬೀದಿ",
+      "content_en": "Main street will be under repair from Jan 20 to Jan 25. Please use alternative routes during this period.",
+      "content_kn": "ಜನವರಿ 20 ರಿಂದ ಜನವರಿ 25 ರವರೆಗೆ ಮುಖ್ಯ ಬೀದಿ ದುರಸ್ತಿ ಕಾರ್ಯದಲ್ಲಿರುತ್ತದೆ. ಈ ಅವಧಿಯಲ್ಲಿ ಪರ್ಯಾಯ ಮಾರ್ಗಗಳನ್ನು ಬಳಸಿ.",
+      "date": "2024-01-16",
+      "category": "Infrastructure",
+      "priority": "medium"
+    },
+    {
+      "notice_id": "NOT-004",
+      "title_en": "Village Festival - Annual Celebration",
+      "title_kn": "ಗ್ರಾಮ ಉತ್ಸವ - ವಾರ್ಷಿಕ ಆಚರಣೆ",
+      "content_en": "Annual village festival celebration with cultural programs, sports events, and community feast. All are welcome!",
+      "content_kn": "ಸಾಂಸ್ಕೃತಿಕ ಕಾರ್ಯಕ್ರಮಗಳು, ಕ್ರೀಡಾ ಕೂಟಗಳು ಮತ್ತು ಸಮುದಾಯ ಭೋಜನದೊಂದಿಗೆ ವಾರ್ಷಿಕ ಗ್ರಾಮ ಉತ್ಸವ ಆಚರಣೆ. ಎಲ್ಲರನ್ನು ಸ್ವಾಗತಿಸಲಾಗುತ್ತದೆ!",
+      "date": "2024-01-22",
+      "category": "Event",
+      "priority": "low"
+    },
+    {
+      "notice_id": "NOT-005",
+      "title_en": "Electricity Maintenance - Power Outage",
+      "title_kn": "ವಿದ್ಯುತ್ ನಿರ್ವಹಣೆ - ವಿದ್ಯುತ್ ನಿಲುಗಡೆ",
+      "content_en": "Scheduled power maintenance on Jan 19 from 9 AM to 2 PM. Please make necessary arrangements.",
+      "content_kn": "ಜನವರಿ 19 ರಂದು ಬೆಳಿಗ್ಗೆ 9 ರಿಂದ ಮಧ್ಯಾಹ್ನ 2 ರವರೆಗೆ ನಿಗದಿತ ವಿದ್ಯುತ್ ನಿರ್ವಹಣೆ. ದಯವಿಟ್ಟು ಅಗತ್ಯ ವ್ಯವಸ್ಥೆಗಳನ್ನು ಮಾಡಿಕೊಳ್ಳಿ.",
+      "date": "2024-01-17",
+      "category": "Utilities",
+      "priority": "high"
+    },
+    {
+      "notice_id": "NOT-006",
+      "title_en": "School Admission Notice",
+      "title_kn": "ಶಾಲಾ ಪ್ರವೇಶ ಸೂಚನೆ",
+      "content_en": "Admissions open for primary school for the academic year 2024-25. Last date for application is February 15.",
+      "content_kn": "2024-25 ಶೈಕ್ಷಣಿಕ ವರ್ಷಕ್ಕೆ ಪ್ರಾಥಮಿಕ ಶಾಲೆಗೆ ಪ್ರವೇಶ ತೆರೆಯಲಾಗಿದೆ. ಅರ್ಜಿಯ ಕೊನೆಯ ದಿನಾಂಕ ಫೆಬ್ರವರಿ 15.",
+      "date": "2024-01-14",
+      "category": "Education",
+      "priority": "medium"
+    },
+    {
+      "notice_id": "NOT-007",
+      "title_en": "Cleanliness Drive - Village Cleanup",
+      "title_kn": "ಸ್ವಚ್ಛತಾ ಚಳುವಳಿ - ಗ್ರಾಮ ಸ್ವಚ್ಛತೆ",
+      "content_en": "Monthly cleanliness drive this Sunday. All residents requested to participate in keeping our village clean.",
+      "content_kn": "ಈ ಭಾನುವಾರ ಮಾಸಿಕ ಸ್ವಚ್ಛತಾ ಚಳುವಳಿ. ನಮ್ಮ ಗ್ರಾಮವನ್ನು ಸ್ವಚ್ಛವಾಗಿಡಲು ಎಲ್ಲಾ ನಿವಾಸಿಗಳು ಭಾಗವಹಿಸಲು ವಿನಂತಿಸಲಾಗಿದೆ.",
+      "date": "2024-01-13",
+      "category": "Community",
+      "priority": "low"
+    },
+    {
+      "notice_id": "NOT-008",
+      "title_en": "Bank Visit - Mobile Banking Service",
+      "title_kn": "ಬ್ಯಾಂಕ್ ಭೇಟಿ - ಮೊಬೈಲ್ ಬ್ಯಾಂಕಿಂಗ್ ಸೇವೆ",
+      "content_en": "Mobile banking van will be available at community hall on Jan 21 from 10 AM to 4 PM for banking services.",
+      "content_kn": "ಬ್ಯಾಂಕಿಂಗ್ ಸೇವೆಗಳಿಗಾಗಿ ಜನವರಿ 21 ರಂದು ಬೆಳಿಗ್ಗೆ 10 ರಿಂದ ಮಧ್ಯಾಹ್ನ 4 ರವರೆಗೆ ಸಮುದಾಯ ಭವನದಲ್ಲಿ ಮೊಬೈಲ್ ಬ್ಯಾಂಕಿಂಗ್ ವ್ಯಾನ್ ಲಭ್ಯವಿರುತ್ತದೆ.",
+      "date": "2024-01-19",
+      "category": "Finance",
+      "priority": "medium"
+    }
+  ]
+}

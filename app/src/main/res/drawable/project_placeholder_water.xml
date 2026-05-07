@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400dp"
+    android:height="300dp"
+    android:viewportWidth="400"
+    android:viewportHeight="300">
+    
+    <!-- Background -->
+    <path
+        android:fillColor="#E3F2FD"
+        android:pathData="M0,0h400v300h-400z" />
+    
+    <!-- Water drop -->
+    <path
+        android:fillColor="#2196F3"
+        android:pathData="M200,80c-30,0 -50,30 -50,50c0,40 50,90 50,90s50,-50 50,-90C250,110 230,80 200,80z" />
+    
+    <!-- Ripple effects -->
+    <path
+        android:fillColor="#64B5F6"
+        android:pathData="M150,200c0,10 5,15 10,15s10,-5 10,-15c0,-10 -10,-20 -10,-20S150,190 150,200z" />
+    <path
+        android:fillColor="#64B5F6"
+        android:pathData="M230,210c0,8 4,12 8,12s8,-4 8,-12c0,-8 -8,-16 -8,-16S230,202 230,210z" />
+</vector>

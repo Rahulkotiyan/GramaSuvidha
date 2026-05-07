@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400dp"
+    android:height="300dp"
+    android:viewportWidth="400"
+    android:viewportHeight="300">
+    
+    <!-- Background -->
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M0,0h400v300h-400z" />
+    
+    <!-- Road representation -->
+    <path
+        android:fillColor="#757575"
+        android:pathData="M0,150h400v40h-400z" />
+    
+    <!-- Center line -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M20,170h30v2h-30z M60,170h30v2h-60z M100,170h30v2h-30z M140,170h30v2h-30z M180,170h30v2h-30z M220,170h30v2h-30z M260,170h30v2h-30z M300,170h30v2h-30z M340,170h30v2h-30z" />
+    
+    <!-- Icon -->
+    <path
+        android:fillColor="#424242"
+        android:pathData="M180,100h40v20h-40z M190,120h20v30h-20z" />
+</vector>
