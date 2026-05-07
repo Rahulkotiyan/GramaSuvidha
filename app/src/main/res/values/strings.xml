@@ -1,8 +1,40 @@
 <resources>
+    <!-- App Name -->
     <string name="app_name">Grama Suvidha</string>
+    
+    <!-- Bottom Navigation Tabs -->
     <string name="tab_notice_board">Notice Board</string>
     <string name="tab_dashboard">Dashboard</string>
     <string name="tab_feedback">Feedback</string>
+    <string name="tab_settings">Settings</string>
+    
+    <!-- Notice Board Screen -->
+    <string name="notice_board_title">Grama-Suvidha Notice Board</string>
     <string name="budget_label">Budget: </string>
-    <string name="progress_label">Progress: </string>
+    <string name="progress_label">Progress</string>
+    
+    <!-- Dashboard Screen -->
+    <string name="dashboard_title">Village Dashboard</string>
+    <string name="total_projects_label">Total Active Projects</string>
+    <string name="completed_projects_label">Completed Works</string>
+    
+    <!-- Project Detail Screen -->
+    <string name="project_details_title">Project Details</string>
+    <string name="project_not_found">Project not found</string>
+    <string name="current_status_label">Current Status</string>
+    <string name="complete_label">%% Complete</string>
+    <string name="site_photos_label">Site Photos</string>
+    <string name="current_project_state">Current Project State</string>
+    
+    <!-- Feedback Screen -->
+    <string name="feedback_title">Namma Dhwani (Feedback)</string>
+    <string name="report_issue_title">Report an Issue or Provide Feedback</string>
+    <string name="feedback_hint">Describe the issue...</string>
+    <string name="submit_report_button">Submit Report</string>
+    
+    <!-- Settings Screen -->
+    <string name="settings_title">Settings</string>
+    <string name="language_label">App Language (Kannada)</string>
+    <string name="data_sync_label">Data Sync</string>
+    <string name="sync_button">Sync Offline Data Now</string>
 </resources>

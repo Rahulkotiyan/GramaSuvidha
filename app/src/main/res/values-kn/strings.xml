@@ -1,9 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App Name -->
     <string name="app_name">ಗ್ರಾಮ-ಸುವಿಧಾ</string>
+    
+    <!-- Bottom Navigation Tabs -->
     <string name="tab_notice_board">ಸೂಚನಾ ಫಲಕ</string>
     <string name="tab_dashboard">ಡ್ಯಾಶ್‌ಬೋರ್ಡ್</string>
     <string name="tab_feedback">ಪ್ರತಿಕ್ರಿಯೆ</string>
+    <string name="tab_settings">ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
+    
+    <!-- Notice Board Screen -->
+    <string name="notice_board_title">ಗ್ರಾಮ-ಸುವಿಧಾ ಸೂಚನಾ ಫಲಕ</string>
     <string name="budget_label">ಬಜೆಟ್: </string>
-    <string name="progress_label">ಪ್ರಗತಿ: </string>
+    <string name="progress_label">ಪ್ರಗತಿ</string>
+    
+    <!-- Dashboard Screen -->
+    <string name="dashboard_title">ಗ್ರಾಮ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್</string>
+    <string name="total_projects_label">ಒಟ್ಟು ಸಕ್ರಿಯ ಯೋಜನೆಗಳು</string>
+    <string name="completed_projects_label">ಪೂರ್ಣಗೊಂಡ ಕೆಲಸಗಳು</string>
+    
+    <!-- Project Detail Screen -->
+    <string name="project_details_title">ಯೋಜನೆ ವಿವರಣೆ</string>
+    <string name="project_not_found">ಯೋಜನೆ ಕಂಡುಬಂದಿಲ್ಲ</string>
+    <string name="current_status_label">ಪ್ರಸ್ತುತ ಸ್ಥಿತಿ</string>
+    <string name="complete_label">%% ಪೂರ್ಣಗೊಂಡಿದೆ</string>
+    <string name="site_photos_label">ಸೈಟ್ ಫೋಟೋಗಳು</string>
+    <string name="current_project_state">ಪ್ರಸ್ತುತ ಯೋಜನೆ ಸ್ಥಿತಿ</string>
+    
+    <!-- Feedback Screen -->
+    <string name="feedback_title">ನಮ್ಮ ಧ್ವನಿ (ಪ್ರತಿಕ್ರಿಯೆ)</string>
+    <string name="report_issue_title">ಸಮಸ್ಯೆಯನ್ನು ವರದಿ ಮಾಡಿ ಅಥವಾ ಪ್ರತಿಕ್ರಿಯೆ ನೀಡಿ</string>
+    <string name="feedback_hint">ಸಮಸ್ಯೆಯನ್ನು ವರ್ಣಿಸಿ...</string>
+    <string name="submit_report_button">ವರದಿ ಸಲ್ಲಿಸಿ</string>
+    
+    <!-- Settings Screen -->
+    <string name="settings_title">ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
+    <string name="language_label">ಅ್ಯಾಪ್ ಭಾಷೆ (ಕನ್ನಡ)</string>
+    <string name="data_sync_label">ಡೇಟಾ ಸಿಂಕ್</string>
+    <string name="sync_button">ಈಗ ಆಫ್‌ಲೈನ್ ಡೇಟಾ ಸಿಂಕ್ ಮಾಡಿ</string>
 </resources>
