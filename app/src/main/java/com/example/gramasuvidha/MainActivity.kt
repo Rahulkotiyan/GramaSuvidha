@@ -17,6 +17,8 @@ import com.example.gramasuvidha.ui.screens.MainAppScreen
 import com.example.gramasuvidha.ui.theme.GramaSuvidhaTheme
 import com.example.gramasuvidha.utils.LocaleManager
 import com.example.gramasuvidha.viewmodels.ProjectViewModel
+import com.example.gramasuvidha.work.WorkManagerScheduler
+import com.example.gramasuvidha.network.RetrofitClient
 
 class MainActivity : ComponentActivity() {
     // Instantiate ViewModel at the Activity level
@@ -33,6 +35,16 @@ class MainActivity : ComponentActivity() {
             LocaleManager.applyLocale(this, savedLanguage)
         } catch (e: Exception) {
             Log.e("GramaSuvidha", "MainActivity: Error applying locale", e)
+        }
+        
+                
+        try {
+            // Phase 3: Initialize WorkManager for background sync
+            Log.d("GramaSuvidha", "MainActivity: Initializing WorkManager...")
+            WorkManagerScheduler.schedulePeriodicSync(this)
+            Log.d("GramaSuvidha", "MainActivity: WorkManager initialized successfully")
+        } catch (e: Exception) {
+            Log.e("GramaSuvidha", "MainActivity: Error initializing WorkManager", e)
         }
         
         try {
