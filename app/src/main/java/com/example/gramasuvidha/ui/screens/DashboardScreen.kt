@@ -10,6 +10,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -56,195 +58,146 @@ fun DashboardScreen(viewModel: ProjectViewModel, navController: NavController) {
                 )
             }
     ) { padding ->
-        Column(
-                modifier =
-                        Modifier.fillMaxSize()
-                                .padding(padding)
-                                .padding(16.dp)
-                                .verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.spacedBy(18.dp)
+        val isRefreshing by viewModel.isRefreshing.collectAsState()
+        
+        PullToRefreshBox(
+            isRefreshing = isRefreshing,
+            onRefresh = { viewModel.refreshProjects() },
+            modifier = Modifier.fillMaxSize().padding(padding)
         ) {
-            // Quick Stats Row
-            Row(
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+                    .verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(18.dp)
+            ) {
+                // Quick Stats Row
+                Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                // Total Projects Card
-                StatCard(
+                ) {
+                    StatCard(
                         modifier = Modifier.weight(1f),
                         title = stringResource(R.string.total_projects_label),
                         value = "$totalProjects",
                         icon = Icons.Default.Assignment,
                         iconColor = MaterialTheme.colorScheme.primary
-                )
+                    )
 
-                // Completed Projects Card
-                StatCard(
+                    StatCard(
                         modifier = Modifier.weight(1f),
                         title = stringResource(R.string.completed_projects_label),
                         value = "$completedProjects",
                         icon = Icons.Default.CheckCircle,
                         iconColor = MaterialTheme.colorScheme.primary
-                )
-            }
+                    )
+                }
 
-            // Progress Overview Card
-            Card(
+                // Progress Overview Card
+                Card(
                     modifier = Modifier.fillMaxWidth().shadow(4.dp, RoundedCornerShape(16.dp)),
                     shape = RoundedCornerShape(16.dp),
-                    colors =
-                            CardDefaults.cardColors(
-                                    containerColor = MaterialTheme.colorScheme.surface
-                            ),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
                     border = CardDefaults.outlinedCardBorder().copy(width = 1.dp)
-            ) {
-                Column(modifier = Modifier.padding(22.dp)) {
-                    Row(
+                ) {
+                    Column(modifier = Modifier.padding(22.dp)) {
+                        Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
+                        ) {
+                            Text(
                                 text = "Overall Progress",
                                 style = MaterialTheme.typography.titleLarge,
                                 fontWeight = FontWeight.SemiBold,
                                 color = MaterialTheme.colorScheme.onSurface
-                        )
-                        Icon(
+                            )
+                            Icon(
                                 imageVector = Icons.Default.TrendingUp,
                                 contentDescription = "Progress",
                                 tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.7f),
                                 modifier = Modifier.size(24.dp)
-                        )
-                    }
+                            )
+                        }
 
-                    Spacer(modifier = Modifier.height(18.dp))
+                        Spacer(modifier = Modifier.height(18.dp))
 
-                    if (totalProjects > 0) {
-                        val averageProgress = projects.map { it.progress_percentage }.average().toInt()
-
-                        // Circular Progress Indicator
-                        Row(
+                        if (totalProjects > 0) {
+                            val averageProgress = projects.map { it.progress_percentage }.average().toInt()
+                            Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Column(modifier = Modifier.weight(1f)) {
-                                Text(
+                            ) {
+                                Column(modifier = Modifier.weight(1f)) {
+                                    Text(
                                         text = "$averageProgress%",
                                         style = MaterialTheme.typography.displaySmall,
                                         fontWeight = FontWeight.Bold,
                                         color = MaterialTheme.colorScheme.primary,
                                         fontSize = 48.sp
-                                )
-                                Spacer(modifier = Modifier.height(4.dp))
-                                Text(
+                                    )
+                                    Spacer(modifier = Modifier.height(4.dp))
+                                    Text(
                                         text = "Average Progress",
                                         style = MaterialTheme.typography.bodySmall,
-                                        color =
-                                                MaterialTheme.colorScheme.onSurface.copy(
-                                                        alpha = 0.7f
-                                                ),
+                                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
                                         fontWeight = FontWeight.Medium
-                                )
-                            }
-
-                            Spacer(modifier = Modifier.width(16.dp))
-
-                            LinearProgressIndicator(
+                                    )
+                                }
+                                LinearProgressIndicator(
                                     progress = { averageProgress / 100f },
                                     modifier = Modifier.width(8.dp).height(120.dp),
                                     color = MaterialTheme.colorScheme.primary,
-                                    trackColor =
-                                            MaterialTheme.colorScheme.surfaceVariant.copy(
-                                                    alpha = 0.5f
-                                            )
-                            )
+                                    trackColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+                                )
+                            }
+                        } else {
+                            Text("No projects yet", style = MaterialTheme.typography.bodyMedium)
                         }
-                    } else {
-                        Text(
-                                text = "No projects yet",
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
-                                fontWeight = FontWeight.Medium
-                        )
                     }
                 }
-            }
 
-            // Summary Section
-            Card(
+                // Summary Section
+                Card(
                     modifier = Modifier.fillMaxWidth().shadow(4.dp, RoundedCornerShape(16.dp)),
                     shape = RoundedCornerShape(16.dp),
-                    colors =
-                            CardDefaults.cardColors(
-                                    containerColor = MaterialTheme.colorScheme.surface
-                            ),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
                     border = CardDefaults.outlinedCardBorder().copy(width = 1.dp)
-            ) {
-                Column(modifier = Modifier.padding(22.dp)) {
-                    Text(
-                            text = "Summary",
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.SemiBold,
-                            color = MaterialTheme.colorScheme.onSurface
-                    )
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    SummaryItem(
-                            label = stringResource(R.string.total_projects_label),
-                            value = "$totalProjects",
-                            icon = Icons.Default.Assignment
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    SummaryItem(
-                            label = stringResource(R.string.completed_projects_label),
-                            value = "$completedProjects",
-                            icon = Icons.Default.CheckCircle
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    SummaryItem(
-                            label = "In Progress",
-                            value = "${totalProjects - completedProjects}",
-                            icon = Icons.Default.Pending
-                    )
-                }
-            }
-
-            // Recent Projects Section
-            if (recentProjects.isNotEmpty()) {
-                Card(
-                        modifier = Modifier.fillMaxWidth().shadow(4.dp, RoundedCornerShape(16.dp)),
-                        shape = RoundedCornerShape(16.dp),
-                        colors =
-                                CardDefaults.cardColors(
-                                        containerColor = MaterialTheme.colorScheme.surface
-                                ),
-                        border = CardDefaults.outlinedCardBorder().copy(width = 1.dp)
                 ) {
                     Column(modifier = Modifier.padding(22.dp)) {
-                        Text(
-                                text = "Recent Projects",
-                                style = MaterialTheme.typography.titleLarge,
-                                fontWeight = FontWeight.SemiBold,
-                                color = MaterialTheme.colorScheme.onSurface
-                        )
-
+                        Text("Summary", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
                         Spacer(modifier = Modifier.height(16.dp))
+                        SummaryItem(stringResource(R.string.total_projects_label), "$totalProjects", Icons.Default.Assignment)
+                        Spacer(modifier = Modifier.height(12.dp))
+                        SummaryItem(stringResource(R.string.completed_projects_label), "$completedProjects", Icons.Default.CheckCircle)
+                        Spacer(modifier = Modifier.height(12.dp))
+                        SummaryItem("In Progress", "${totalProjects - completedProjects}", Icons.Default.Pending)
+                    }
+                }
 
-                        recentProjects.forEach { project ->
-                            val localizedTitle = getLocalizedTitle(context, project)
-                            DashboardProjectItem(
+                // Recent Projects Section
+                if (recentProjects.isNotEmpty()) {
+                    Card(
+                        modifier = Modifier.fillMaxWidth().shadow(4.dp, RoundedCornerShape(16.dp)),
+                        shape = RoundedCornerShape(16.dp),
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                        border = CardDefaults.outlinedCardBorder().copy(width = 1.dp)
+                    ) {
+                        Column(modifier = Modifier.padding(22.dp)) {
+                            Text("Recent Projects", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
+                            Spacer(modifier = Modifier.height(16.dp))
+                            recentProjects.forEach { project ->
+                                val localizedTitle = getLocalizedTitle(context, project)
+                                DashboardProjectItem(
                                     project = project,
                                     title = localizedTitle,
-                                    onClick = { 
-                                        android.util.Log.d("GramaSuvidha", "DashboardScreen: Clicked project ${project.project_id}, navigating to details")
-                                        navController.navigate("project_detail/${project.project_id}")
-                                    }
-                            )
-                            if (project != recentProjects.last()) {
-                                Spacer(modifier = Modifier.height(12.dp))
+                                    onClick = { navController.navigate("project_detail/${project.project_id}") }
+                                )
+                                if (project != recentProjects.last()) {
+                                    Spacer(modifier = Modifier.height(12.dp))
+                                }
                             }
                         }
                     }

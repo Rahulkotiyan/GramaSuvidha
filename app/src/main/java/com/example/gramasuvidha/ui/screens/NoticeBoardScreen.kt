@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,11 +56,19 @@ fun NoticeBoardScreen(
                         )
                 }
         ) { padding ->
-                LazyColumn(
-                        modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp),
-                        verticalArrangement = Arrangement.spacedBy(12.dp),
-                        contentPadding = PaddingValues(bottom = 8.dp)
-                ) { items(notices) { notice -> NoticeCard(notice = notice) } }
+                PullToRefreshBox(
+                        isRefreshing = isLoading,
+                        onRefresh = { noticeViewModel.fetchNotices() },
+                        modifier = Modifier.fillMaxSize().padding(padding)
+                ) {
+                        LazyColumn(
+                                modifier = Modifier.fillMaxSize().padding(16.dp),
+                                verticalArrangement = Arrangement.spacedBy(12.dp),
+                                contentPadding = PaddingValues(bottom = 8.dp)
+                        ) {
+                                items(notices) { notice -> NoticeCard(notice = notice) }
+                        }
+                }
         }
 }
 
