@@ -297,8 +297,17 @@ input:focus {
 .badge-resolved { background-color: rgba(16, 185, 129, 0.2); color: #34d399; }
 
 .feedback-text-truncate {
-    max-width: 200px;
+    max-width: 250px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.spin {
+    animation: spin 1s linear infinite;
 }

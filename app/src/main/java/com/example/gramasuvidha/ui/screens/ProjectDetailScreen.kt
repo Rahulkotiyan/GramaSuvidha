@@ -25,6 +25,8 @@ import com.example.gramasuvidha.R
 import com.example.gramasuvidha.utils.getLocalizedDescription
 import com.example.gramasuvidha.utils.getLocalizedTitle
 import com.example.gramasuvidha.viewmodels.ProjectViewModel
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -279,88 +281,60 @@ fun ProjectDetailScreen(
                                 )
                         }
 
-                        // Image Section
-                        Text(
-                                stringResource(R.string.site_photos_label),
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.SemiBold,
-                                color = MaterialTheme.colorScheme.onSurface
-                        )
-
-                        Card(
-                                modifier =
-                                        Modifier.fillMaxWidth()
-                                                .height(240.dp)
-                                                .shadow(4.dp, RoundedCornerShape(16.dp)),
+                        // Before Image Section
+                        if (!project.before_url.isNullOrBlank()) {
+                            Text(
+                                "Before Construction",
+                                style = MaterialTheme.typography.titleSmall,
+                                fontWeight = FontWeight.Medium,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                            )
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(240.dp)
+                                    .shadow(4.dp, RoundedCornerShape(16.dp)),
                                 shape = RoundedCornerShape(16.dp),
-                                colors =
-                                        CardDefaults.cardColors(
-                                                containerColor =
-                                                        MaterialTheme.colorScheme.surfaceVariant
-                                                                .copy(alpha = 0.5f)
-                                        )
-                        ) {
-                                // Safe image loading using local drawable resources
-                                val imageResource =
-                                        when {
-                                                project.title_en.contains(
-                                                        "Road",
-                                                        ignoreCase = true
-                                                ) ->
-                                                        com.example
-                                                                .gramasuvidha
-                                                                .R
-                                                                .drawable
-                                                                .project_placeholder_road
-                                                project.title_en.contains(
-                                                        "Borewell",
-                                                        ignoreCase = true
-                                                ) ||
-                                                        project.title_en.contains(
-                                                                "Water",
-                                                                ignoreCase = true
-                                                        ) ->
-                                                        com.example
-                                                                .gramasuvidha
-                                                                .R
-                                                                .drawable
-                                                                .project_placeholder_water
-                                                project.title_en.contains(
-                                                        "Hall",
-                                                        ignoreCase = true
-                                                ) ||
-                                                        project.title_en.contains(
-                                                                "School",
-                                                                ignoreCase = true
-                                                        ) ||
-                                                        project.title_en.contains(
-                                                                "Center",
-                                                                ignoreCase = true
-                                                        ) ||
-                                                        project.title_en.contains(
-                                                                "Health",
-                                                                ignoreCase = true
-                                                        ) ->
-                                                        com.example
-                                                                .gramasuvidha
-                                                                .R
-                                                                .drawable
-                                                                .project_placeholder_building
-                                                else ->
-                                                        com.example
-                                                                .gramasuvidha
-                                                                .R
-                                                                .drawable
-                                                                .project_placeholder_general
-                                        }
-
-                                Image(
-                                        painter = painterResource(id = imageResource),
-                                        contentDescription =
-                                                stringResource(R.string.current_project_state),
-                                        modifier = Modifier.fillMaxSize(),
-                                        contentScale = ContentScale.Fit
+                                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                            ) {
+                                AsyncImage(
+                                    model = ImageRequest.Builder(context)
+                                        .data(project.before_url)
+                                        .crossfade(true)
+                                        .build(),
+                                    contentDescription = "Before Photo",
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentScale = ContentScale.Crop
                                 )
+                            }
+                        }
+
+                        // Current/After Image Section
+                        if (!project.current_url.isNullOrBlank()) {
+                            Text(
+                                "Current Status",
+                                style = MaterialTheme.typography.titleSmall,
+                                fontWeight = FontWeight.Medium,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                            )
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(240.dp)
+                                    .shadow(4.dp, RoundedCornerShape(16.dp)),
+                                shape = RoundedCornerShape(16.dp),
+                                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                            ) {
+                                AsyncImage(
+                                    model = ImageRequest.Builder(context)
+                                        .data(project.current_url)
+                                        .crossfade(true)
+                                        .build(),
+                                    contentDescription = "Current Photo",
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentScale = ContentScale.Crop
+                                )
+                            }
                         }
 
                         Spacer(modifier = Modifier.height(8.dp))

@@ -168,6 +168,9 @@ async function saveNotice(e) {
     if (id) {
         result = await supabaseClient.from('notices').update(noticeData).eq('notice_id', id);
     } else {
+        // Generate a unique ID for new notice
+        const newId = 'NOT-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+        noticeData.notice_id = newId;
         result = await supabaseClient.from('notices').insert([noticeData]);
     }
 
@@ -265,6 +268,9 @@ async function saveProject(e) {
     if (id) {
         result = await supabaseClient.from('projects').update(projectData).eq('project_id', id);
     } else {
+        // Generate a unique ID for new project (matching the app's PRJ-XXX format)
+        const newId = 'PRJ-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+        projectData.project_id = newId;
         result = await supabaseClient.from('projects').insert([projectData]);
     }
 
@@ -280,6 +286,45 @@ async function deleteProject(id) {
         const { error } = await supabaseClient.from('projects').delete().eq('project_id', id);
         if (error) alert(error.message);
         else fetchProjects();
+    }
+}
+
+// --- Storage Handlers ---
+async function handleFileUpload(type) {
+    const fileInput = document.getElementById(`${type}-file`);
+    const urlInput = document.getElementById(`project-${type}-url`);
+    const statusEl = document.getElementById('upload-status');
+    const file = fileInput.files[0];
+
+    if (!file) return;
+
+    try {
+        statusEl.classList.remove('hidden');
+        lucide.createIcons(); // To show loader icon
+
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
+        const filePath = `uploads/${fileName}`;
+
+        const { data, error } = await supabaseClient.storage
+            .from('project-images')
+            .upload(filePath, file);
+
+        if (error) throw error;
+
+        // Get Public URL
+        const { data: { publicUrl } } = supabaseClient.storage
+            .from('project-images')
+            .getPublicUrl(filePath);
+
+        urlInput.value = publicUrl;
+        console.log(`Uploaded ${type} image:`, publicUrl);
+    } catch (error) {
+        console.error('Error uploading image:', error);
+        alert('Error uploading image: ' + error.message);
+    } finally {
+        statusEl.classList.add('hidden');
+        fileInput.value = ''; // Reset file input
     }
 }
 
@@ -405,3 +450,4 @@ window.deleteProject = deleteProject;
 window.viewFeedback = viewFeedback;
 window.saveFeedbackStatus = saveFeedbackStatus;
 window.deleteFeedback = deleteFeedback;
+window.handleFileUpload = handleFileUpload;
