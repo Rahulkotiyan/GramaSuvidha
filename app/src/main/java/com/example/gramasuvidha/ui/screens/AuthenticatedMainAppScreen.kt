@@ -131,9 +131,11 @@ fun AuthenticatedMainAppScreen(viewModel: ProjectViewModel) {
             }
             
             // Enhanced feedback with authentication
-            composable("feedback") { 
+            composable("feedback?projectId={projectId}") { backStackEntry ->
+                val projectId = backStackEntry.arguments?.getString("projectId")
                 AuthenticatedFeedbackWrapper(
-                    projectId = null,
+                    projectId = projectId,
+                    projectViewModel = viewModel,
                     authService = authService,
                     onNavigateBack = { navController.popBackStack() }
                 )

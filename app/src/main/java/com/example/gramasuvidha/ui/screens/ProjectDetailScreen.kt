@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Feedback
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -252,6 +253,30 @@ fun ProjectDetailScreen(
                                                                 .copy(alpha = 0.5f)
                                         )
                                 }
+                        }
+
+                        // Give Feedback Button
+                        Button(
+                                onClick = {
+                                        navController.navigate("feedback?projectId=${project.project_id}")
+                                },
+                                modifier = Modifier.fillMaxWidth().height(56.dp).shadow(4.dp, RoundedCornerShape(12.dp)),
+                                shape = RoundedCornerShape(12.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                                )
+                        ) {
+                                Icon(
+                                        imageVector = Icons.Default.Feedback,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(20.dp)
+                                )
+                                Spacer(modifier = Modifier.width(10.dp))
+                                Text(
+                                        "Give Feedback on this Project",
+                                        fontWeight = FontWeight.SemiBold
+                                )
                         }
 
                         // Image Section

@@ -48,17 +48,17 @@ interface ApiService {
     // Phase 4: Feedback API Endpoints
 
     /** Submit feedback for a project */
-    @POST("feedback")
-    suspend fun submitFeedback(@Body feedbackRequest: FeedbackRequest): Response<FeedbackResponse>
+    @POST("feedbacks")
+    suspend fun submitFeedback(@Body feedbackRequest: FeedbackRequest): Response<Unit>
 
     /** Get all feedback for a specific project */
-    @GET("feedback?select=*&project_id=eq.{projectId}")
+    @GET("feedbacks?select=*&project_id=eq.{projectId}")
     suspend fun getFeedbackForProject(
             @Path("projectId") projectId: String
     ): Response<List<Feedback>>
 
     /** Get all feedback (admin only) */
-    @GET("feedback?select=*") suspend fun getAllFeedback(): Response<List<Feedback>>
+    @GET("feedbacks?select=*") suspend fun getAllFeedback(): Response<List<Feedback>>
 
     /** Fetch all notices from the backend */
     @GET("notices?select=*&order=date.desc") suspend fun getAllNotices(): Response<List<Notice>>

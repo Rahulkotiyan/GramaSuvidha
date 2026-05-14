@@ -27,7 +27,11 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EnhancedFeedbackScreen(projectId: String? = null, onNavigateBack: () -> Unit = {}) {
+fun EnhancedFeedbackScreen(
+    projectId: String? = null,
+    projectViewModel: com.example.gramasuvidha.viewmodels.ProjectViewModel? = null,
+    onNavigateBack: () -> Unit = {}
+) {
     android.util.Log.d("GramaSuvidha", "EnhancedFeedbackScreen: Rendering")
 
     var feedbackText by remember { mutableStateOf("") }
@@ -41,6 +45,12 @@ fun EnhancedFeedbackScreen(projectId: String? = null, onNavigateBack: () -> Unit
     val categories =
             listOf("General", "Infrastructure", "Water Supply", "Health", "Education", "Other")
     val coroutineScope = rememberCoroutineScope()
+    
+    // Project Selection State
+    val projects by projectViewModel?.projects?.collectAsState(initial = emptyList()) ?: remember { mutableStateOf(emptyList()) }
+    var internalProjectId by remember { mutableStateOf(projectId) }
+    var expanded by remember { mutableStateOf(false) }
+    val selectedProject = projects.find { it.project_id == internalProjectId }
 
     val isFormValid = feedbackText.trim().length >= 10 && selectedRating > 0
 
@@ -104,6 +114,73 @@ fun EnhancedFeedbackScreen(projectId: String? = null, onNavigateBack: () -> Unit
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
                             fontWeight = FontWeight.Normal
                     )
+                }
+            }
+
+            // Project Selection Card (if no projectId passed or to allow changing)
+            Card(
+                modifier = Modifier.fillMaxWidth().shadow(2.dp, RoundedCornerShape(12.dp)),
+                shape = RoundedCornerShape(12.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                border = CardDefaults.outlinedCardBorder().copy(width = 1.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        text = "Project",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Medium,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    
+                    Box(modifier = Modifier.fillMaxWidth()) {
+                        OutlinedCard(
+                            onClick = { if (projectId == null) expanded = true },
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(8.dp),
+                            colors = CardDefaults.outlinedCardColors(
+                                containerColor = if (projectId != null) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f) else MaterialTheme.colorScheme.surface
+                            )
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(12.dp).fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = selectedProject?.title_en ?: if (internalProjectId == "general") "General / App Feedback" else "Select a Project",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = if (selectedProject == null && internalProjectId != "general") MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f) else MaterialTheme.colorScheme.onSurface
+                                )
+                                if (projectId == null) {
+                                    Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null)
+                                }
+                            }
+                        }
+                        
+                        DropdownMenu(
+                            expanded = expanded,
+                            onDismissRequest = { expanded = false },
+                            modifier = Modifier.fillMaxWidth(0.8f)
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text("General / App Feedback") },
+                                onClick = {
+                                    internalProjectId = "general"
+                                    expanded = false
+                                }
+                            )
+                            projects.forEach { project ->
+                                DropdownMenuItem(
+                                    text = { Text(project.title_en) },
+                                    onClick = {
+                                        internalProjectId = project.project_id
+                                        expanded = false
+                                    }
+                                )
+                            }
+                        }
+                    }
                 }
             }
 
@@ -353,7 +430,7 @@ fun EnhancedFeedbackScreen(projectId: String? = null, onNavigateBack: () -> Unit
                                 try {
                                     val feedbackRequest =
                                             FeedbackRequest(
-                                                    project_id = projectId ?: "general",
+                                                    project_id = internalProjectId ?: "general",
                                                     rating = selectedRating,
                                                     category = selectedCategory,
                                                     feedback_text = feedbackText.trim(),

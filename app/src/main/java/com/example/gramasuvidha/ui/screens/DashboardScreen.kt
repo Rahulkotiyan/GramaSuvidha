@@ -121,8 +121,7 @@ fun DashboardScreen(viewModel: ProjectViewModel, navController: NavController) {
                     Spacer(modifier = Modifier.height(18.dp))
 
                     if (totalProjects > 0) {
-                        val completionRate =
-                                (completedProjects.toFloat() / totalProjects * 100).toInt()
+                        val averageProgress = projects.map { it.progress_percentage }.average().toInt()
 
                         // Circular Progress Indicator
                         Row(
@@ -132,7 +131,7 @@ fun DashboardScreen(viewModel: ProjectViewModel, navController: NavController) {
                         ) {
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
-                                        text = "$completionRate%",
+                                        text = "$averageProgress%",
                                         style = MaterialTheme.typography.displaySmall,
                                         fontWeight = FontWeight.Bold,
                                         color = MaterialTheme.colorScheme.primary,
@@ -140,7 +139,7 @@ fun DashboardScreen(viewModel: ProjectViewModel, navController: NavController) {
                                 )
                                 Spacer(modifier = Modifier.height(4.dp))
                                 Text(
-                                        text = "Complete",
+                                        text = "Average Progress",
                                         style = MaterialTheme.typography.bodySmall,
                                         color =
                                                 MaterialTheme.colorScheme.onSurface.copy(
@@ -153,7 +152,7 @@ fun DashboardScreen(viewModel: ProjectViewModel, navController: NavController) {
                             Spacer(modifier = Modifier.width(16.dp))
 
                             LinearProgressIndicator(
-                                    progress = { completionRate / 100f },
+                                    progress = { averageProgress / 100f },
                                     modifier = Modifier.width(8.dp).height(120.dp),
                                     color = MaterialTheme.colorScheme.primary,
                                     trackColor =

@@ -64,6 +64,12 @@
                             <span>Projects</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-view="feedbacks">
+                            <i data-lucide="message-square"></i>
+                            <span>Feedbacks</span>
+                        </a>
+                    </li>
                 </ul>
                 <div class="sidebar-footer">
                     <a id="logout-btn" class="nav-link" style="color: var(--danger);">
@@ -87,6 +93,10 @@
                         <div class="stat-card">
                             <div class="stat-value" id="count-projects">-</div>
                             <div class="stat-label">Active Projects</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="count-feedbacks">-</div>
+                            <div class="stat-label">Total Feedbacks</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-value" id="avg-progress">-</div>
@@ -146,6 +156,31 @@
                                 </tr>
                             </thead>
                             <tbody id="projects-table-body">
+                                <!-- Data will be injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Feedbacks View -->
+                <section id="view-feedbacks" class="view hidden">
+                    <header>
+                        <h1 class="view-title">Manage Feedbacks</h1>
+                    </header>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Project</th>
+                                    <th>Rating</th>
+                                    <th>Comment</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="feedbacks-table-body">
                                 <!-- Data will be injected here -->
                             </tbody>
                         </table>
@@ -248,6 +283,27 @@
                     <button type="submit" class="btn btn-primary">Save Project</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <div id="feedback-modal" class="modal-backdrop hidden">
+        <div class="modal">
+            <h2 id="feedback-modal-title">Feedback Details</h2>
+            <div id="feedback-detail-content" style="margin-top: 1.5rem; line-height: 1.6;">
+                <!-- Content will be injected here -->
+            </div>
+            <div class="form-group" style="margin-top: 1.5rem;">
+                <label>Update Status</label>
+                <select id="feedback-status-update">
+                    <option value="pending">Pending</option>
+                    <option value="reviewed">Reviewed</option>
+                    <option value="resolved">Resolved</option>
+                </select>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem;">
+                <button type="button" class="btn" onclick="closeModals()">Close</button>
+                <button type="button" class="btn btn-primary" onclick="saveFeedbackStatus()">Update Status</button>
+            </div>
         </div>
     </div>
 

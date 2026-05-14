@@ -2,6 +2,8 @@
 let currentView = 'dashboard';
 let notices = [];
 let projects = [];
+let feedbacks = [];
+let currentFeedbackId = null;
 
 // --- Initialization ---
 document.addEventListener('DOMContentLoaded', async () => {
@@ -63,6 +65,7 @@ async function loadView(view) {
     if (view === 'dashboard') updateDashboardStats();
     if (view === 'notices') fetchNotices();
     if (view === 'projects') fetchProjects();
+    if (view === 'feedbacks') fetchFeedbacks();
     
     lucide.createIcons();
 }
@@ -280,6 +283,93 @@ async function deleteProject(id) {
     }
 }
 
+// --- Feedbacks CRUD ---
+async function fetchFeedbacks() {
+    const { data, error } = await supabaseClient
+        .from('feedbacks')
+        .select('*, projects(title_en)')
+        .order('timestamp', { ascending: false });
+
+    if (error) return console.error(error);
+    feedbacks = data;
+    renderFeedbacks();
+}
+
+function renderFeedbacks() {
+    const tbody = document.getElementById('feedbacks-table-body');
+    tbody.innerHTML = feedbacks.map(fb => `
+        <tr>
+            <td>${fb.is_anonymous ? 'Anonymous' : (fb.user_id?.substring(0, 8) || 'User')}</td>
+            <td>${fb.projects?.title_en || 'Unknown Project'}</td>
+            <td>
+                <div class="rating-stars">
+                    ${'★'.repeat(fb.rating)}${'☆'.repeat(5 - fb.rating)}
+                </div>
+            </td>
+            <td><div class="feedback-text-truncate">${fb.feedback_text}</div></td>
+            <td><span class="badge badge-${fb.status}">${fb.status}</span></td>
+            <td>${new Date(fb.timestamp).toLocaleDateString()}</td>
+            <td>
+                <button class="btn" onclick="viewFeedback('${fb.feedback_id}')" style="padding: 0.25rem;">
+                    <i data-lucide="eye" style="width: 16px;"></i>
+                </button>
+                <button class="btn" onclick="deleteFeedback('${fb.feedback_id}')" style="padding: 0.25rem; color: var(--danger);">
+                    <i data-lucide="trash-2" style="width: 16px;"></i>
+                </button>
+            </td>
+        </tr>
+    `).join('');
+    lucide.createIcons();
+}
+
+function viewFeedback(id) {
+    const fb = feedbacks.find(f => f.feedback_id === id);
+    if (!fb) return;
+
+    currentFeedbackId = id;
+    const modal = document.getElementById('feedback-modal');
+    const content = document.getElementById('feedback-detail-content');
+    const statusSelect = document.getElementById('feedback-status-update');
+
+    content.innerHTML = `
+        <p><strong>Project:</strong> ${fb.projects?.title_en || 'N/A'}</p>
+        <p><strong>Category:</strong> ${fb.category}</p>
+        <p><strong>Rating:</strong> ${'★'.repeat(fb.rating)}${'☆'.repeat(5 - fb.rating)}</p>
+        <p><strong>User:</strong> ${fb.is_anonymous ? 'Anonymous' : fb.user_id}</p>
+        <p><strong>Date:</strong> ${new Date(fb.timestamp).toLocaleString()}</p>
+        <hr style="margin: 1rem 0; border: none; border-top: 1px solid var(--border);">
+        <p><strong>Comment:</strong></p>
+        <p style="background: var(--bg-primary); padding: 1rem; border-radius: 0.5rem; margin-top: 0.5rem;">${fb.feedback_text}</p>
+    `;
+
+    statusSelect.value = fb.status;
+    modal.classList.remove('hidden');
+}
+
+async function saveFeedbackStatus() {
+    const newStatus = document.getElementById('feedback-status-update').value;
+    if (!currentFeedbackId) return;
+
+    const { error } = await supabaseClient
+        .from('feedbacks')
+        .update({ status: newStatus })
+        .eq('feedback_id', currentFeedbackId);
+
+    if (error) alert(error.message);
+    else {
+        closeModals();
+        fetchFeedbacks();
+    }
+}
+
+async function deleteFeedback(id) {
+    if (confirm('Are you sure you want to delete this feedback?')) {
+        const { error } = await supabaseClient.from('feedbacks').delete().eq('feedback_id', id);
+        if (error) alert(error.message);
+        else fetchFeedbacks();
+    }
+}
+
 // --- Helpers ---
 function closeModals() {
     document.querySelectorAll('.modal-backdrop').forEach(m => m.classList.add('hidden'));
@@ -288,15 +378,21 @@ function closeModals() {
 async function updateDashboardStats() {
     const { count: noticeCount } = await supabaseClient.from('notices').select('*', { count: 'exact', head: true });
     const { data: projectData } = await supabaseClient.from('projects').select('progress_percentage');
+    const { count: feedbackCount } = await supabaseClient.from('feedbacks').select('*', { count: 'exact', head: true });
     
     document.getElementById('count-notices').textContent = noticeCount || 0;
     document.getElementById('count-projects').textContent = projectData?.length || 0;
+    document.getElementById('count-feedbacks').textContent = feedbackCount || 0;
     
     if (projectData && projectData.length > 0) {
-        const avg = projectData.reduce((acc, curr) => acc + curr.progress_percentage, 0) / projectData.length;
-        document.getElementById('avg-progress').textContent = Math.round(avg);
+        const total = projectData.reduce((acc, curr) => {
+            const val = Number(curr.progress_percentage) || 0;
+            return acc + val;
+        }, 0);
+        const avg = total / projectData.length;
+        document.getElementById('avg-progress').textContent = Math.round(avg) + '%';
     } else {
-        document.getElementById('avg-progress').textContent = '0';
+        document.getElementById('avg-progress').textContent = '0%';
     }
 }
 
@@ -306,3 +402,6 @@ window.editProject = openProjectModal;
 window.closeModals = closeModals;
 window.deleteNotice = deleteNotice;
 window.deleteProject = deleteProject;
+window.viewFeedback = viewFeedback;
+window.saveFeedbackStatus = saveFeedbackStatus;
+window.deleteFeedback = deleteFeedback;

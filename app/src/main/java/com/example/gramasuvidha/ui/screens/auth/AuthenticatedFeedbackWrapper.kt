@@ -11,6 +11,7 @@ import com.example.gramasuvidha.auth.AuthService
 @Composable
 fun AuthenticatedFeedbackWrapper(
     projectId: String?,
+    projectViewModel: com.example.gramasuvidha.viewmodels.ProjectViewModel,
     authService: AuthService,
     onNavigateBack: () -> Unit
 ) {
@@ -20,6 +21,7 @@ fun AuthenticatedFeedbackWrapper(
         // Show feedback screen for authenticated users
         EnhancedFeedbackScreen(
             projectId = projectId,
+            projectViewModel = projectViewModel,
             userId = authState.user?.id,
             onNavigateBack = onNavigateBack
         )
@@ -86,12 +88,14 @@ private fun LoginPromptScreen(
 @Composable
 private fun EnhancedFeedbackScreen(
     projectId: String?,
+    projectViewModel: com.example.gramasuvidha.viewmodels.ProjectViewModel,
     userId: String?,
     onNavigateBack: () -> Unit
 ) {
     // Use existing EnhancedFeedbackScreen
     com.example.gramasuvidha.ui.screens.EnhancedFeedbackScreen(
         projectId = projectId,
+        projectViewModel = projectViewModel,
         onNavigateBack = onNavigateBack
     )
 }

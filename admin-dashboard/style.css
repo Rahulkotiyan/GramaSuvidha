@@ -285,3 +285,20 @@ input:focus {
     border-radius: 1.5rem;
     border: 1px solid var(--border);
 }
+/* Feedback Ratings and Statuses */
+.rating-stars {
+    color: #f59e0b;
+    display: flex;
+    gap: 2px;
+}
+
+.badge-pending { background-color: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+.badge-reviewed { background-color: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+.badge-resolved { background-color: rgba(16, 185, 129, 0.2); color: #34d399; }
+
+.feedback-text-truncate {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
