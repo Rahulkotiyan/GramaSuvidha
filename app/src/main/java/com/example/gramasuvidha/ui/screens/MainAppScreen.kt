@@ -147,7 +147,7 @@ fun MainAppScreen(viewModel: ProjectViewModel) {
 
             // Your ViewModel is properly passed to the screens here!
 
-            composable("notice_board") { NoticeBoardScreen(viewModel, navController) }
+            composable("notice_board") { NoticeBoardScreen(navController) }
 
             composable("dashboard") { DashboardScreen(viewModel, navController) }
 

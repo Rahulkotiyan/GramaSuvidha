@@ -1,7 +1,6 @@
 package com.example.gramasuvidha.ui.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -34,15 +33,21 @@ fun ProjectDetailScreen(
         navController: NavController
 ) {
         val projects by viewModel.projects.collectAsState()
-        android.util.Log.d("GramaSuvidha", "ProjectDetailScreen: Looking for project $projectId, available projects: ${projects.size}")
+        android.util.Log.d(
+                "GramaSuvidha",
+                "ProjectDetailScreen: Looking for project $projectId, available projects: ${projects.size}"
+        )
         val project = projects.find { it.project_id == projectId }
         android.util.Log.d("GramaSuvidha", "ProjectDetailScreen: Found project: ${project != null}")
         val context = LocalContext.current
-        
+
         // Return early if project is null to prevent crashes
         if (project == null) {
-            android.util.Log.e("GramaSuvidha", "ProjectDetailScreen: Project not found for ID: $projectId")
-            return
+                android.util.Log.e(
+                        "GramaSuvidha",
+                        "ProjectDetailScreen: Project not found for ID: $projectId"
+                )
+                return
         }
 
         Scaffold(
@@ -99,8 +104,11 @@ fun ProjectDetailScreen(
 
                 val localizedTitle = getLocalizedTitle(context, project)
                 val localizedDescription = getLocalizedDescription(context, project)
-                
-                android.util.Log.d("GramaSuvidha", "ProjectDetailScreen: Successfully loaded localized content")
+
+                android.util.Log.d(
+                        "GramaSuvidha",
+                        "ProjectDetailScreen: Successfully loaded localized content"
+                )
 
                 Column(
                         modifier =
@@ -268,26 +276,65 @@ fun ProjectDetailScreen(
                                         )
                         ) {
                                 // Safe image loading using local drawable resources
-                                val imageResource = when {
-                                    project.title_en.contains("Road", ignoreCase = true) -> 
-                                        com.example.gramasuvidha.R.drawable.project_placeholder_road
-                                    project.title_en.contains("Borewell", ignoreCase = true) || 
-                                    project.title_en.contains("Water", ignoreCase = true) -> 
-                                        com.example.gramasuvidha.R.drawable.project_placeholder_water
-                                    project.title_en.contains("Hall", ignoreCase = true) || 
-                                    project.title_en.contains("School", ignoreCase = true) ||
-                                    project.title_en.contains("Center", ignoreCase = true) ||
-                                    project.title_en.contains("Health", ignoreCase = true) -> 
-                                        com.example.gramasuvidha.R.drawable.project_placeholder_building
-                                    else -> 
-                                        com.example.gramasuvidha.R.drawable.project_placeholder_general
-                                }
-                                
+                                val imageResource =
+                                        when {
+                                                project.title_en.contains(
+                                                        "Road",
+                                                        ignoreCase = true
+                                                ) ->
+                                                        com.example
+                                                                .gramasuvidha
+                                                                .R
+                                                                .drawable
+                                                                .project_placeholder_road
+                                                project.title_en.contains(
+                                                        "Borewell",
+                                                        ignoreCase = true
+                                                ) ||
+                                                        project.title_en.contains(
+                                                                "Water",
+                                                                ignoreCase = true
+                                                        ) ->
+                                                        com.example
+                                                                .gramasuvidha
+                                                                .R
+                                                                .drawable
+                                                                .project_placeholder_water
+                                                project.title_en.contains(
+                                                        "Hall",
+                                                        ignoreCase = true
+                                                ) ||
+                                                        project.title_en.contains(
+                                                                "School",
+                                                                ignoreCase = true
+                                                        ) ||
+                                                        project.title_en.contains(
+                                                                "Center",
+                                                                ignoreCase = true
+                                                        ) ||
+                                                        project.title_en.contains(
+                                                                "Health",
+                                                                ignoreCase = true
+                                                        ) ->
+                                                        com.example
+                                                                .gramasuvidha
+                                                                .R
+                                                                .drawable
+                                                                .project_placeholder_building
+                                                else ->
+                                                        com.example
+                                                                .gramasuvidha
+                                                                .R
+                                                                .drawable
+                                                                .project_placeholder_general
+                                        }
+
                                 Image(
-                                    painter = painterResource(id = imageResource),
-                                    contentDescription = stringResource(R.string.current_project_state),
-                                    modifier = Modifier.fillMaxSize(),
-                                    contentScale = ContentScale.Fit
+                                        painter = painterResource(id = imageResource),
+                                        contentDescription =
+                                                stringResource(R.string.current_project_state),
+                                        modifier = Modifier.fillMaxSize(),
+                                        contentScale = ContentScale.Fit
                                 )
                         }
 

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GramaSuvidha Admin | Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Auth Section -->
+    <div id="auth-section" class="auth-container">
+        <div class="auth-card">
+            <div class="logo" style="justify-content: center;">
+                <i data-lucide="layout-dashboard"></i>
+                <span>GramaSuvidha</span>
+            </div>
+            <h2 style="text-align: center; margin-bottom: 2rem;">Admin Login</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="login-email" placeholder="admin@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="login-password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                    Sign In
+                </button>
+            </form>
+            <p id="login-error" class="danger" style="margin-top: 1rem; text-align: center; font-size: 0.875rem; display: none;"></p>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard-section" class="hidden">
+        <div id="app">
+            <aside class="sidebar">
+                <div class="logo">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>GramaSuvidha</span>
+                </div>
+                <ul class="nav-links">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-view="dashboard">
+                            <i data-lucide="home"></i>
+                            <span>Overview</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-view="notices">
+                            <i data-lucide="megaphone"></i>
+                            <span>Notices</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-view="projects">
+                            <i data-lucide="construction"></i>
+                            <span>Projects</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="sidebar-footer">
+                    <a id="logout-btn" class="nav-link" style="color: var(--danger);">
+                        <i data-lucide="log-out"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </aside>
+
+            <main class="main-content">
+                <!-- Overview View -->
+                <section id="view-dashboard" class="view">
+                    <header>
+                        <h1 class="view-title">Overview</h1>
+                    </header>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="count-notices">-</div>
+                            <div class="stat-label">Total Notices</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="count-projects">-</div>
+                            <div class="stat-label">Active Projects</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="avg-progress">-</div>
+                            <div class="stat-label">Avg. Progress (%)</div>
+                        </div>
+                    </div>
+                    <div class="card" id="activity-card">
+                        <h3>Dashboard Live</h3>
+                        <p style="color: var(--text-secondary); margin-top: 1rem;">All data shown here is fetched live from your Supabase backend.</p>
+                    </div>
+                </section>
+
+                <!-- Notices View -->
+                <section id="view-notices" class="view hidden">
+                    <header>
+                        <h1 class="view-title">Manage Notices</h1>
+                        <button class="btn btn-primary" onclick="openNoticeModal()">
+                            <i data-lucide="plus"></i>
+                            New Notice
+                        </button>
+                    </header>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Title (EN)</th>
+                                    <th>Category</th>
+                                    <th>Priority</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="notices-table-body">
+                                <!-- Data will be injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Projects View -->
+                <section id="view-projects" class="view hidden">
+                    <header>
+                        <h1 class="view-title">Manage Projects</h1>
+                        <button class="btn btn-primary" onclick="openProjectModal()">
+                            <i data-lucide="plus"></i>
+                            New Project
+                        </button>
+                    </header>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Project Title</th>
+                                    <th>Budget</th>
+                                    <th>Progress</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="projects-table-body">
+                                <!-- Data will be injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="notice-modal" class="modal-backdrop hidden">
+        <div class="modal">
+            <h2 id="notice-modal-title">Create Notice</h2>
+            <form id="notice-form" style="margin-top: 1.5rem;">
+                <input type="hidden" id="notice-id">
+                <div class="form-group">
+                    <label>Title (English)</label>
+                    <input type="text" id="notice-title-en" required>
+                </div>
+                <div class="form-group">
+                    <label>Title (Kannada)</label>
+                    <input type="text" id="notice-title-kn" required>
+                </div>
+                <div class="form-group">
+                    <label>Content (English)</label>
+                    <textarea id="notice-content-en" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Content (Kannada)</label>
+                    <textarea id="notice-content-kn" rows="3" required></textarea>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="notice-category">
+                            <option value="General">General</option>
+                            <option value="Health">Health</option>
+                            <option value="Agriculture">Agriculture</option>
+                            <option value="Education">Education</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Priority</label>
+                        <select id="notice-priority">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1rem;">
+                    <button type="button" class="btn" onclick="closeModals()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Notice</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="project-modal" class="modal-backdrop hidden">
+        <div class="modal">
+            <h2 id="project-modal-title">Create Project</h2>
+            <form id="project-form" style="margin-top: 1.5rem;">
+                <input type="hidden" id="project-id">
+                <div class="form-group">
+                    <label>Project Title (English)</label>
+                    <input type="text" id="project-title-en" placeholder="Enter title in English" required>
+                </div>
+                <div class="form-group">
+                    <label>Project Title (Kannada)</label>
+                    <input type="text" id="project-title-kn" placeholder="Enter title in Kannada" required>
+                </div>
+                <div class="form-group">
+                    <label>Description (English)</label>
+                    <textarea id="project-desc-en" rows="2" placeholder="Enter description in English" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Description (Kannada)</label>
+                    <textarea id="project-desc-kn" rows="2" placeholder="Enter description in Kannada" required></textarea>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label>Budget</label>
+                        <input type="text" id="project-budget" placeholder="e.g. ₹50,000" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Progress (%)</label>
+                        <input type="number" id="project-progress" min="0" max="100" value="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Before Image URL</label>
+                    <input type="url" id="project-before-url" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label>Current Image URL</label>
+                    <input type="url" id="project-current-url" placeholder="https://...">
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1rem;">
+                    <button type="button" class="btn" onclick="closeModals()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Project</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="supabase-config.js"></script>
+    <script src="app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

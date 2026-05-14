@@ -2,6 +2,7 @@ package com.example.gramasuvidha.network
 
 import android.content.Context
 import android.util.Log
+import com.example.gramasuvidha.models.Notice
 import com.example.gramasuvidha.models.Project
 import com.example.gramasuvidha.models.ProjectDao
 import kotlinx.coroutines.flow.Flow
@@ -130,6 +131,31 @@ class NetworkRepository(
         }
     }
     
+    /**
+     * Fetch all notices from the API
+     */
+    suspend fun getAllNotices(): NetworkResult<List<Notice>> {
+        return try {
+            Log.d(TAG, "Fetching notices from API...")
+            val result = safeApiCall { apiService.getAllNotices() }
+            
+            when (result) {
+                is NetworkResult.Success -> {
+                    Log.d(TAG, "Successfully fetched ${result.data.size} notices")
+                    NetworkResult.success(result.data)
+                }
+                is NetworkResult.Error -> {
+                    Log.e(TAG, "Notice API Error: ${result.message}")
+                    NetworkResult.error(result.message, result.code)
+                }
+                is NetworkResult.Loading -> NetworkResult.loading()
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error fetching notices: ${e.message}", e)
+            NetworkResult.error("Failed to fetch notices: ${e.message}", null)
+        }
+    }
+
     /**
      * Test API connectivity to debug issues
      */
