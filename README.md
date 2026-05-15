@@ -67,6 +67,8 @@ const SUPABASE_URL = 'https://your-project-id.supabase.co';
 const SUPABASE_KEY = 'your-anon-key';
 ```
 
+### Downloadable APK file link:
+https://drive.google.com/file/d/1ITQ7WTXtyaNn22CawIT1jU8qCHPvBFPT/view?usp=drive_link
 ---
 
 
