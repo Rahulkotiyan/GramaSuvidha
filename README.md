@@ -71,10 +71,5 @@ const SUPABASE_KEY = 'your-anon-key';
 https://drive.google.com/file/d/1ITQ7WTXtyaNn22CawIT1jU8qCHPvBFPT/view?usp=drive_link
 ---
 
-
-
-##  License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ---
 *Developed for rural empowerment.*
